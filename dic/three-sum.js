@@ -1,15 +1,25 @@
-function check(arr) {
-  return !!arr && arr.length > 0
+function check(arr, len) {
+  return !!arr && arr.length >= len 
 }
 
-/*** 三数之和 */
+/*** 
+ * 三数之和: 本处解法均不考虑数字重复
+ */
+
+// 暴力求解
 exports.threeSumRoughly = function (arr, sum) {
   const res = []
-  if (!check(arr)) return res
+  if (!check(arr, 3)) return res
 
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
+  for (let i = 0; i < arr.length - 2; i++) {
+    // if (arr[i] === arr[i + 1]) continue // 可去重
+
+    for (let j = i + 1; j < arr.length - 1; j++) {
+      // if (arr[j] === arr[j + 1]) continue // 可去重
+
       for (let k = j + 1; k < arr.length; k++) {
+        // if (arr[k] === arr[k + 1]) continue // 可去重
+
         if (arr[i] + arr[j] + arr[k] === sum) {
           res.push([arr[i], arr[j], arr[k]])
         }
@@ -24,9 +34,9 @@ exports.threeSum = function (arr, sum) {
   const res = []
   const map = new Map()
 
-  if (!check(arr)) return res
+  if (!check(arr, 3)) return res
 
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length - 2; i++) {
     map.clear() // 必须
 
     // 内层做 twoSum
@@ -46,7 +56,32 @@ exports.threeSum = function (arr, sum) {
   return res
 }
 
+/**
+ * 双指针逼近法
+ */
+exports.threeSumDoublePointer = function (arr, sum) {
+  const res = []
 
+  if (!check(arr, 3)) return res
+
+  arr.sort() // 也可以新开数组，防止输入被改变
+
+  for (let i = 0; i < arr.length; i++) {
+    let start = i + 1
+    let end = arr.length - 1
+
+    while (start <= end) {
+      const tmp = arr[i] + arr[start] + arr[end]
+      if (tmp === sum) {
+        res.push([arr[i], arr[start], arr[end]])
+      } else {
+        tmp > sum ? end-- : start++
+      }
+    }
+  }
+
+  return res
+}
 
 /*** 两数之和 */
 
@@ -55,7 +90,7 @@ exports.threeSum = function (arr, sum) {
  */
 exports.twoSumRoughly = function (arr, sum) {
   const res = []
-  if (!check(arr)) return res
+  if (!check(arr, 2)) return res
 
   for (let i = 0; i < arr.length; i++) {
     for (let j = i + 1; j < arr.length; j++) {
@@ -75,7 +110,7 @@ exports.twoSum = function (arr, sum) {
   const res = []
   const map = new Map()
 
-  if (!check(arr)) return res
+  if (!check(arr, 2)) return res
 
   for (let i = 0; i < arr.length; i++) {
     const ele = arr[i]

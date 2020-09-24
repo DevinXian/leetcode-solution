@@ -16,6 +16,19 @@ describe('three sum by map', () => {
   })
 })
 
+describe('three sum by pointer', () => {
+  test('should return empty', () => {
+    expect(threeSum([], 8)).toHaveLength(0)
+    expect(threeSum(list, 100)).toHaveLength(0)
+  })
+  test('should return three records', () => {
+    expect(threeSum(list, 10)).toHaveLength(2)
+  })
+  test('should return three records', () => {
+    expect(threeSum(list, 12)).toHaveLength(2)
+  })
+})
+
 describe('three sum by loop', () => {
   test('should return empty', () => {
     expect(threeSumRoughly([], 8)).toHaveLength(0)
