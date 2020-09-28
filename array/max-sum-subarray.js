@@ -33,7 +33,6 @@ exports.maxSumArray = function (list) {
   let lastEnd = end
 
   for (let i = 0; i < list.length; i++) {
-    console.log('--------------for:', i)
     // 累加值小于0，则重新开始算
     if (sum < 0) {
       sum = list[i]
@@ -53,9 +52,6 @@ exports.maxSumArray = function (list) {
       lastEnd = end
     }
   }
-
-  console.log(list, start, end)
-  console.log(sum, maxSum, lastStart, lastEnd)
 
   return list.slice(lastStart, lastEnd)
 }
