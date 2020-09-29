@@ -1,29 +1,10 @@
+const { binarySearchMinLarger } = require('../helper')
 /**
  * 最长非连续上升子序列 - 暴力复杂度 O(2^n)
- * DP 复杂度 - O(n^2)
- * 优化非DP解法 - O(n*lg(n))
  */
 
- // 二分查找，返回大于该元素的最小元素对应索引
-function binarySearchClosestLarger(list, i, start, end) {
-
-
-}
-
 /**
- * 解法一：维护队列,复杂度 O(n*lg(n))
- */
-exports.solutionLoop = function (list) {
-  if (!list || !list.length) return []
-
-  // 维护一个队列
-  const res = []
-  
-
-}
-
-/**
- * 解法二：DP解法 复杂度 O(n^2) 
+ * 解法：DP解法 复杂度 O(n^2) 
  */
 exports.solution = function (list) {
   if (!list || !list.length) return []
@@ -83,3 +64,30 @@ exports.solutionContinuously = function (list) {
 
   return result
 }
+
+/**
+ * 最长上升子序列长度（非数组）: 复杂度 O(n*lg(n))
+ */
+exports.maxLength = function (list) {
+  if (!list || !list.length) return 0 
+
+  let curr = list[0]
+  let index = -1
+  const res = [curr] // 维护结果队列
+
+  for (let i = 1; i < list.length; i++) {
+    curr = list[i]
+    // 找合适位置：都小于curr，添加至结尾；
+    // 否则替换第一个大于curr的元素: a<b<c 且 b<d<c，则 a<d<c
+    index = binarySearchMinLarger(res, curr, 0, res.length - 1)
+
+    index === -1
+      ? res.push(curr)
+      : res.splice(index, 1, curr)
+  }
+
+  // 虽然数组不对，但是长度正确, 如 list=[2,3,1] => res=[1, 3]
+  // 解释：替换元素只是为了让后面元素可以加进来，本质上还是一换一，不影响长度
+  return res.length
+}
+
