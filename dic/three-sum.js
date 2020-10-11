@@ -125,3 +125,8 @@ exports.twoSum = function (arr, sum) {
 
   return res
 }
+
+// 贴个网友的骚操作 - 注：其中 ar.splice(1) 是用来将数组后面全部去掉，相当于length赋值 i+1，提前终止循环
+function twoSum3(nums, target) {
+  return nums.reduce((p, v, i, ar) => p[v] !== undefined && ar.splice(1) && [p[v], i] || (i === p['l'] ? [] : p[target - v] = i, p), {l: nums.length - 1})
+}
