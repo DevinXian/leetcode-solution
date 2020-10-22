@@ -15,3 +15,14 @@ function binarySearchMinLarger(list, value, start, end) {
 }
 
 exports.binarySearchMinLarger = binarySearchMinLarger
+
+exports.initTowDimensionalArray = function (size, defaultValue) {
+  const dp = new Array(size)
+
+  for (let k = 0; k < size; k++) {
+    dp[k] = new Array(size)
+    dp[k].fill(defaultValue)
+  }
+
+  return dp
+}
