@@ -52,14 +52,27 @@ exports.solutionWithCenter = function (s = '') {
 
   if (!len) return res
 
-  for (let center = 0; center < 2 * len - 1; center++) {
-    let left = parseInt(center / 2)
-    let right = left + center % 2
+  // for (let center = 0; center < 2 * len - 1; center++) {
+  //   let left = parseInt(center / 2)
+  //   let right = left + center % 2
 
-    while (left >= 0 && right < len && s[left] == s[right]) {
+  //   while (left >= 0 && right < len && s[left] == s[right]) {
+  //     res += 1
+  //     left--
+  //     right++
+  //   }
+  // }
+
+  // 分别以单字母（奇数个）和双字母（偶数个，如abab，只能以ba为中心扩）扩散
+  for (let i = 0; i < len; ++i) {
+    let l = i, r = i; //以单字母为中心
+    while (l >= 0 && r < len && s[l--] == s[r++]) {
       res += 1
-      left--
-      right++
+    }
+
+    l = i, r = i + 1; //以双字母为中心
+    while (l >= 0 && r < len && s[l--] == s[r++]) {
+      res += 1
     }
   }
 
