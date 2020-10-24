@@ -79,6 +79,41 @@ exports.solutionWithDP = function (s = '') {
 }
 
 /**
+ * 解法二优化版：动态规划
+ * @param {string} s
+ * @return {number}
+ * @time O(n^2) 两层循环
+ * @space O(n) 一维数组
+ */
+exports.solutionWithDP_2 = function (s = '') {
+  let res = 0 // 总数 
+  const len = s.length
+
+  if (!len) return res
+
+  /**
+   * 空间优化思路：优化外部循环固定时，内部空间重用问题
+   * 理解：当 i 固定, dp[j] 状态只跟 i+1 时候的 dp[j+1] 有关，可以复用外层上一次循环(即 i+1)时的空间
+   * 以之前解法，i 递减，j 递增，基准方向不同，所以无法重用空间，需改成同向增加
+   */
+  const dp = new Array(len).fill(false) // 初始化一个数组
+
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j <= i; j++) {
+      // dp[j+1] 是上一次外层循环 i-1 计算好的，注意此时：i - j >= 2，故 j+1 存在
+      if (s[i] === s[j] && (i - j < 2 || dp[j + 1])) { // 当 j 变大，不能从 dp[j-1] => dp[j]，会覆盖
+        dp[j] = true
+        res += 1
+      } else {
+        dp[j] = false // 不可省略，如果二维数组则可省略
+      }
+    }
+  }
+
+  return res
+}
+
+/**
  * 解法三：中心扩展法
  * @param {string} s
  * @return {number}

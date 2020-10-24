@@ -1,52 +1,49 @@
 const {
   solutionWithDP,
-  solutionWithCenter
+  solutionWithDP_2,
+  solutionWithCenter,
+  solutionWithLoop
 } = require('./647.palindromic-substrings')
 
-describe('647.palindromis-substring solutionWithDP test', () => {
+function runner(method) {
   test('empty string', () => {
-    expect(solutionWithDP('')).toEqual(0)
+    expect(method('')).toEqual(0)
   })
   test('only one char', () => {
-    expect(solutionWithDP('a')).toEqual(1)
+    expect(method('a')).toEqual(1)
   })
   test('two different char', () => {
-    expect(solutionWithDP('ab')).toEqual(2)
+    expect(method('ab')).toEqual(2)
   })
   test('two same char', () => {
-    expect(solutionWithDP('aa')).toEqual(3)
+    expect(method('aa')).toEqual(3)
   })
   test('three same char', () => {
-    expect(solutionWithDP('aaa')).toEqual(6)
+    expect(method('aaa')).toEqual(6)
   })
   test('common case1', () => {
-    expect(solutionWithDP('aba')).toEqual(4)
+    expect(method('aba')).toEqual(4)
   })
   test('common case2', () => {
-    expect(solutionWithDP('cabac')).toEqual(7)
+    expect(method('cabac')).toEqual(7)
   })
+  test('common case3', () => {
+    expect(method('fdsklf')).toEqual(6)
+  })
+}
+
+describe('647.palindromis-substring solutionWithLoop test', () => {
+  runner(solutionWithLoop)
+})
+
+describe('647.palindromis-substring solutionWithDP test', () => {
+  runner(solutionWithDP)
+})
+
+describe('647.palindromis-substring solutionWithDP_2 test', () => {
+  runner(solutionWithDP_2)
 })
 
 describe('647.palindromis-substring solutionWithCenter test', () => {
-  test('empty string', () => {
-    expect(solutionWithCenter('')).toEqual(0)
-  })
-  test('only one char', () => {
-    expect(solutionWithCenter('a')).toEqual(1)
-  })
-  test('two different char', () => {
-    expect(solutionWithCenter('ab')).toEqual(2)
-  })
-  test('two same char', () => {
-    expect(solutionWithCenter('aa')).toEqual(3)
-  })
-  test('three same char', () => {
-    expect(solutionWithCenter('aaa')).toEqual(6)
-  })
-  test('common case1', () => {
-    expect(solutionWithCenter('aba')).toEqual(4)
-  })
-  test('common case2', () => {
-    expect(solutionWithCenter('cabac')).toEqual(7)
-  })
+  runner(solutionWithCenter)
 })
