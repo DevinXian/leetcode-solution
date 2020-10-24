@@ -4,8 +4,47 @@ const { initTowDimensionalArray } = require('../helper')
  * leetcode 647 palindromic-substrings
  */
 
+function isPalindrome(str) {
+  let i = 0
+  let j = str.length - 1
+
+  while (i < j) {
+    if (str[i] !== str[j]) {
+      return false
+    }
+    i++
+    j--
+  }
+
+  return true
+}
+
 /**
- * 解法一：动态规划
+ * 解法一：暴力解法
+ * @param {*} s 
+* @return {number}
+* @time O(n^3) 找字符串，再判断是否回文
+* @space O(1)
+ */
+exports.solutionWithLoop = function (s = '') {
+  let res = 0
+  const len = s.length
+
+  if (!len) return res
+
+  for (let i = 0; i < len; i++) {
+    for (let j = i; j < len; j++) {
+      if (isPalindrome(s.slice(i, j + 1))) {
+        res += 1
+      }
+    }
+  }
+
+  return res
+}
+
+/**
+ * 解法二：动态规划
  * @param {string} s
  * @return {number}
  * @time O(n^2) 两层循环
@@ -40,7 +79,7 @@ exports.solutionWithDP = function (s = '') {
 }
 
 /**
- * 解法二：中心扩展法
+ * 解法三：中心扩展法
  * @param {string} s
  * @return {number}
  * @time O(n^2)
@@ -51,6 +90,9 @@ exports.solutionWithCenter = function (s = '') {
   const len = s.length
 
   if (!len) return res
+
+  // 分析：单字符为中心，则有 len 个；双字符为中心，则有 len - 1 个，共 2 * len - 1
+  // 可归纳出(归纳可参考leetcode网友）：left 为 Math.floor(center/2)，right = left + center % 2
 
   // for (let center = 0; center < 2 * len - 1; center++) {
   //   let left = parseInt(center / 2)
@@ -80,8 +122,9 @@ exports.solutionWithCenter = function (s = '') {
 }
 
 /**
- * 解法三：
+ * 解法四：Manacher TODO: 较难，有余力再写
  * @param {string} s
  * @return {number}
- *
+ * @time O(n)
+ * @space O(n)
  */
