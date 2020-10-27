@@ -3,6 +3,7 @@ const {
   solutionWithLoop,
   solutionWithDFS,
   solutionWithDP,
+  solutionWithWave,
 } = require('./122.best-time-to-buy-sell-stock-ii')
 
 function runTest(method) {
@@ -34,3 +35,6 @@ console.timeEnd('greedy')
 console.time('dp')
 runTest(solutionWithDP)
 console.timeEnd('dp')
+console.time('wave')
+runTest(solutionWithWave)
+console.timeEnd('wave')

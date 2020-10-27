@@ -57,7 +57,7 @@ function solutionWithDFS(prices) {
 
   let result = 0
   const len = prices.length
-  
+
   dfs(0, false, 0)
   return result
 
@@ -146,11 +146,46 @@ function solutionWithDP(prices) {
   return dp[len - 1][0] // 最后一天不持有股票的最大收益
 }
 
-// 还有波峰波谷法，从略，原理是不断寻找波峰波谷，然后相减（因不限无限次买卖）
+
+/**
+ * 解法五：波峰波谷差分算法
+ * @param {number[]} prices
+ * @return {number} 最大利润
+ * @time O(n) 一次循环
+ * @space O(1)
+ */
+function solutionWithWave(prices) {
+  const len = prices && prices.length
+  if (!len) return 0
+
+  let res = 0
+  let low = prices[0]
+  let high = prices[0]
+  let index = 0
+
+  while (index < len - 1) {
+    // 递减则继续向后寻找拐点
+    while (index < len - 1 && prices[index] >= prices[index + 1]) {
+      index += 1
+    }
+    low = prices[index]
+
+    // 递增
+    while (index < len - 1 && prices[index] <= prices[index + 1]) {
+      index += 1
+    }
+    high = prices[index]
+
+    res += high - low
+  }
+
+  return res
+}
 
 module.exports = {
   solutionWithDP,
   solutionWithGreedy,
   solutionWithLoop,
   solutionWithDFS,
+  solutionWithWave,
 }
