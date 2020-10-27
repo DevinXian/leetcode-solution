@@ -1,6 +1,7 @@
 const {
   solutionWithGreedy,
   solutionWithLoop,
+  solutionWithDP,
 } = require('./122.best-time-to-buy-sell-stock-ii')
 
 function runTest(method) {
@@ -22,3 +23,4 @@ function runTest(method) {
 
 // runTest(solutionWithLoop)
 runTest(solutionWithGreedy)
+runTest(solutionWithDP)
