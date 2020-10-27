@@ -58,8 +58,12 @@ function solutionWithDP(prices) {
   const len = prices && prices.length
   if (!len) return 0
 
-  // dp 状态，当前交易后的状态（即是否持有股票）注意不是动作（即不是买入或卖出）
+  // dp 状态，当前交易后的状态（即是否持有股票）；
+  // 注意错误思考方式：不是买入或者卖出动作，这些输入转移方程的内容
+
   // dp 转移：上一天交易后状态和当日是否买卖（有股票才能购买）
+  // 不持有股票的收益 = 上一天不持有股票，今天不交易 or 上一天买入，今天卖出 最大值
+  // 持有股票的收益 = 上一天持有股票，今天不交易 or 上一天不持有，今天买入 最大值
 
   const dp = new Array(len)
   for (let k = 0; k < len; k++) {
