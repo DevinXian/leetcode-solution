@@ -162,6 +162,7 @@ function solutionWithWave(prices) {
   let low = prices[0]
   let high = prices[0]
   let index = 0
+  // 也可以 index=1 开始，循环体调整比较 prices[i-1] 和 prices[i]，注意索引边界
 
   while (index < len - 1) {
     // 递减则继续向后寻找拐点
